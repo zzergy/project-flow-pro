@@ -1,0 +1,36 @@
+.background {
+  width: 100vw;
+  height: 100vh;
+
+  background-image: url("../../images/background.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  text-align: center;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .container {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+
+    .content {
+      background-color: var(--white);
+      padding: 4rem 3rem;
+      display: flex;
+      flex-direction: column;
+      width: 30rem;
+      border-radius: 0 0.8rem 0.8rem 0;
+
+      .heading {
+        font-family: inherit;
+        font-weight: 700;
+        margin-bottom: 4rem;
+        text-align: left;
+        color: var(--color-dark-blue);
+      }
+    }
+  }
+}

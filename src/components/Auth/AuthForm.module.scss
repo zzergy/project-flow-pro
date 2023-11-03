@@ -1,0 +1,58 @@
+.form {
+  display: flex;
+  flex-direction: column;
+
+  .input {
+    font-family: inherit;
+    color: var(--color-gray-light);
+    padding-bottom: 0.2rem;
+    border: none;
+    border-bottom: 3px solid var(--black);
+    margin-bottom: 3rem;
+
+    &:last-of-type {
+      margin-bottom: 0;
+    }
+
+    &:focus {
+      outline: none;
+      color: var(--black);
+    }
+  }
+
+  .btn {
+    padding: 1.25rem 2rem;
+    text-transform: uppercase;
+    letter-spacing: 0.4rem;
+    font-weight: 400;
+    margin-bottom: 1rem;
+  }
+
+  .submit__btn {
+    background-color: var(--color-main);
+    color: var(--white);
+    margin-top: 3rem;
+  }
+
+  .login {
+    color: var(--color-gray);
+  }
+
+  .google__btn {
+    border: 3px solid var(--color-main);
+    background-color: transparent;
+    color: var(--color-main);
+    width: 100%;
+  }
+}
+
+.link {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--color-main);
+
+  span {
+    display: inline-block;
+    border-bottom: 1px solid currentColor;
+  }
+}
