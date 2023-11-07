@@ -3,6 +3,7 @@
   background-image: url("../../images/form-background.png");
   background-size: cover;
   width: 28vw;
+  height: 100%;
   border-radius: 0.8rem 0 0 0.8rem;
 
   .content {
@@ -12,6 +13,9 @@
     top: 0;
     left: 0;
     color: var(--white);
+
+    display: flex;
+    flex-direction: column;
 
     .header {
       display: flex;
@@ -25,17 +29,16 @@
 
       .heading {
         font-size: 0.8rem;
-        font-weight: 500;
         margin: 0;
       }
     }
 
     .text {
-      height: 100%;
       display: flex;
       flex-direction: column;
       justify-content: center;
       font-weight: 700;
+      margin-top: 50%;
 
       .heading {
         margin-bottom: 0.5rem;
