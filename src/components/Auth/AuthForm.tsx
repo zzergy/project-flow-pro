@@ -1,17 +1,18 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
-import { Button } from "semantic-ui-react";
+import { Link, useNavigate } from "react-router-dom";
 import InputField from "../shared/InputField";
 import { AUTH } from "../../utils/enums";
 import { auth, db, provider } from "../../firebase.config";
-import { collection, addDoc } from "firebase/firestore";
+import { collection, addDoc, getDocs } from "firebase/firestore";
 import {
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
   signInWithPopup,
-  GoogleAuthProvider,
-  signOut,
 } from "firebase/auth";
+import { Button } from "antd";
+import useNotification from "../../hooks/useNotification";
+import { transformFirebaseErrorMessage } from "../../utils/functions";
+import bcrypt from "bcryptjs";
 import styles from "./AuthForm.module.scss";
 
 type Props = {
@@ -19,6 +20,8 @@ type Props = {
 };
 
 const AuthForm = ({ type }: Props) => {
+  const navigate = useNavigate();
+  const notify = useNotification();
   const database = collection(db, "users");
 
   const [data, setData] = useState({
@@ -54,46 +57,48 @@ const AuthForm = ({ type }: Props) => {
       : createUserWithEmailAndPassword;
 
     try {
-      const res = await method(auth, data.email, data.password);
-      console.log(res.user);
-    } catch (error: any) {
-      console.log(error.message);
-    }
+      const hashedPassword = bcrypt.hashSync(data.password, 10);
 
-    // addDoc(database, data)
-    //   .then(() => alert("Data sent"))
-    //   .catch((err) => alert(err.message));
+      // if (isLoginPage) {
+      //   const currUser = await getDocs(database);
+      //   console.log(currUser.metadata.map(el => console.log(el)));
+      // }
+
+      const response = await method(auth, data.email, data.password);
+      // TODO 1. Compare passwords, 2. Compare confirm passwords
+      // bcrypt.compare(data.password, response.user)
+
+      const token = await response.user.getIdToken();
+      localStorage.setItem("token", token);
+      console.log(response);
+
+      if (!isLoginPage && response.user) {
+        addDoc(database, {
+          email: data.email,
+          username: data.username,
+          password: hashedPassword,
+        });
+
+        notify.success("Success");
+        navigate("/login");
+      }
+
+      isLoginPage && navigate("/");
+    } catch (error: any) {
+      notify.error("Error", transformFirebaseErrorMessage(error.message));
+    }
   };
 
-  const handleGoogleSignIn = (event: any) => {
+  const handleGoogleSignIn = async (event: any) => {
     event.preventDefault();
 
-    signInWithPopup(auth, provider)
-      .then((result) => {
-        // This gives you a Google Access Token. You can use it to access the Google API.
-        const credential = GoogleAuthProvider.credentialFromResult(result);
-        const token = credential?.accessToken;
-        // The signed-in user info.
-        const user = result.user;
-        // IdP data available using getAdditionalUserInfo(result)
-      })
-      .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        const email = error.customData.email;
-        const credential = GoogleAuthProvider.credentialFromError(error);
-        console.log(error);
-      });
-  };
+    try {
+      const response = await signInWithPopup(auth, provider);
 
-  const handleLogout = () => {
-    signOut(auth)
-      .then(() => {
-        alert("SUCCESS");
-      })
-      .catch((error) => {
-        alert(error.message);
-      });
+      response.user && navigate("/");
+    } catch (error: any) {
+      notify.error("Error", transformFirebaseErrorMessage(error.message));
+    }
   };
 
   const loginContent = (
@@ -111,13 +116,15 @@ const AuthForm = ({ type }: Props) => {
   return (
     <>
       <form className={styles.form}>
-        <InputField
-          type="text"
-          name="username"
-          placeholder="Name"
-          className={styles.input}
-          onChange={(event) => handleChange(event)}
-        />
+        {!isLoginPage && (
+          <InputField
+            type="text"
+            name="username"
+            placeholder="Username"
+            className={styles.input}
+            onChange={(event) => handleChange(event)}
+          />
+        )}
         <InputField
           type="email"
           name="email"
@@ -141,14 +148,14 @@ const AuthForm = ({ type }: Props) => {
             onChange={(event) => handleChange(event)}
           />
         )}
-
         <Button
           onClick={handleSubmit}
+          type="primary"
           className={`${styles.btn} ${styles.submit__btn}`}
         >
           Continue
         </Button>
-        <Button onClick={handleLogout}>Logout</Button>
+
         {isLoginPage && loginContent}
       </form>
       <Link

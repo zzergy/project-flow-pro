@@ -21,6 +21,10 @@
   }
 
   .btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
     padding: 1.25rem 2rem;
     text-transform: uppercase;
     letter-spacing: 0.4rem;
@@ -43,11 +47,12 @@
     background-color: transparent;
     color: var(--color-main);
     width: 100%;
+    margin-top: 1rem;
   }
 }
 
 .link {
-  font-size: 0.9rem;
+  font-size: 0.8rem;
   font-weight: 500;
   color: var(--color-main);
 
