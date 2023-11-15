@@ -1,26 +1,28 @@
+import { Input } from "antd";
+
 type Props = {
-  type: string;
   name: string;
-  placeholder: string;
   className?: string;
+  placeholder?: string;
+  type?: string;
   onChange?: React.ChangeEventHandler;
 };
 
 const InputField = ({
-  type,
   name,
-  placeholder,
   className,
+  placeholder,
+  type,
   onChange,
 }: Props) => {
   return (
-    <input
-      type={type}
+    <Input
       name={name}
-      placeholder={placeholder}
       className={className}
+      placeholder={placeholder}
+      type={type}
       onChange={onChange}
-    ></input>
+    ></Input>
   );
 };
 
