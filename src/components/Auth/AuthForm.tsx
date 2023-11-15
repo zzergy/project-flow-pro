@@ -35,7 +35,7 @@ const AuthForm = ({ type }: Props) => {
     ? "Don’t have an account ? Sign Up here"
     : "Already have an account ? Sign In here";
 
-  const onFinish = async (values: any) => {
+  const onFinish = async (values: FieldType) => {
     const method = isLoginPage
       ? signInWithEmailAndPassword
       : createUserWithEmailAndPassword;
