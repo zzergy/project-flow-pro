@@ -4,19 +4,23 @@
 
   .input {
     font-family: inherit;
-    color: var(--color-gray-light);
-    padding-bottom: 0.2rem;
+    padding: 0 0 0.2rem 0;
     border: none;
     border-bottom: 3px solid var(--black);
-    margin-bottom: 3rem;
+    border-radius: 0;
 
-    &:last-of-type {
-      margin-bottom: 0;
+    &::placeholder {
+      color: var(--color-gray);
     }
 
-    &:focus {
-      outline: none;
-      color: var(--black);
+    &:focus,
+    &:active {
+      border-bottom: 3px solid var(--color-main);
+      box-shadow: none;
+    }
+
+    &:last-of-type {
+      margin-bottom: 0.8rem;
     }
   }
 
@@ -25,7 +29,7 @@
     justify-content: center;
     align-items: center;
 
-    padding: 1.25rem 2rem;
+    padding: 1.5rem 2rem;
     text-transform: uppercase;
     letter-spacing: 0.4rem;
     font-weight: 400;
@@ -35,11 +39,12 @@
   .submit__btn {
     background-color: var(--color-main);
     color: var(--white);
-    margin-top: 3rem;
+    margin-top: 2rem;
   }
 
   .login {
     color: var(--color-gray);
+    text-align: center;
   }
 
   .google__btn {
@@ -55,6 +60,8 @@
   font-size: 0.8rem;
   font-weight: 500;
   color: var(--color-main);
+  text-align: center;
+  margin-top: 0.5rem;
 
   span {
     display: inline-block;
