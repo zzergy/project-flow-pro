@@ -1,22 +1,27 @@
-import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import InputField from "../shared/InputField";
 import { AUTH } from "../../utils/enums";
 import { auth, db, provider } from "../../firebase.config";
-import { collection, addDoc, getDocs } from "firebase/firestore";
+import { collection, addDoc } from "firebase/firestore";
 import {
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
   signInWithPopup,
 } from "firebase/auth";
-import { Button } from "antd";
+import { Button, Form } from "antd";
 import useNotification from "../../hooks/useNotification";
 import { transformFirebaseErrorMessage } from "../../utils/functions";
-import bcrypt from "bcryptjs";
 import styles from "./AuthForm.module.scss";
+import InputField from "../shared/InputField";
 
 type Props = {
   type: AUTH;
+};
+
+type FieldType = {
+  username?: string;
+  email: string;
+  password: string;
+  confirmPassword?: string;
 };
 
 const AuthForm = ({ type }: Props) => {
@@ -24,59 +29,32 @@ const AuthForm = ({ type }: Props) => {
   const notify = useNotification();
   const database = collection(db, "users");
 
-  const [data, setData] = useState({
-    username: "",
-    email: "",
-    password: "",
-    confirmPassword: "",
-  });
-
   const isLoginPage = type === AUTH.LOGIN;
 
   const linkText = isLoginPage
     ? "Don’t have an account ? Sign Up here"
     : "Already have an account ? Sign In here";
 
-  const handleChange = (
-    // event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-    event: any
-  ) => {
-    const { name, value } = event.target;
-
-    setData((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
-  };
-
-  const handleSubmit = async (event: any) => {
-    event.preventDefault();
-
+  const onFinish = async (values: any) => {
     const method = isLoginPage
       ? signInWithEmailAndPassword
       : createUserWithEmailAndPassword;
 
     try {
-      const hashedPassword = bcrypt.hashSync(data.password, 10);
+      if (values.password !== values.confirmPassword && !isLoginPage) {
+        notify.error("Error", "Passwords don't match");
+        return;
+      }
 
-      // if (isLoginPage) {
-      //   const currUser = await getDocs(database);
-      //   console.log(currUser.metadata.map(el => console.log(el)));
-      // }
-
-      const response = await method(auth, data.email, data.password);
-      // TODO 1. Compare passwords, 2. Compare confirm passwords
-      // bcrypt.compare(data.password, response.user)
+      const response = await method(auth, values.email, values.password);
 
       const token = await response.user.getIdToken();
       localStorage.setItem("token", token);
-      console.log(response);
 
       if (!isLoginPage && response.user) {
         addDoc(database, {
-          email: data.email,
-          username: data.username,
-          password: hashedPassword,
+          email: values.email,
+          username: values.username,
         });
 
         notify.success("Success");
@@ -101,6 +79,10 @@ const AuthForm = ({ type }: Props) => {
     }
   };
 
+  const onFinishFailed = (errorInfo: any) => {
+    notify.error("Error", errorInfo);
+  };
+
   const loginContent = (
     <div className={styles.login}>
       <p>or Connect with</p>
@@ -115,41 +97,70 @@ const AuthForm = ({ type }: Props) => {
 
   return (
     <>
-      <form className={styles.form}>
+      <Form
+        className={styles.form}
+        onFinish={onFinish}
+        onFinishFailed={onFinishFailed}
+        name="control-ref"
+      >
         {!isLoginPage && (
-          <InputField
-            type="text"
+          <Form.Item<FieldType>
             name="username"
-            placeholder="Username"
-            className={styles.input}
-            onChange={(event) => handleChange(event)}
-          />
+            rules={[{ required: true, message: "Please enter your username!" }]}
+          >
+            <InputField
+              name="username"
+              placeholder="Username"
+              className={styles.input}
+            />
+          </Form.Item>
         )}
-        <InputField
-          type="email"
+
+        <Form.Item<FieldType>
           name="email"
-          placeholder="Email Address"
-          className={styles.input}
-          onChange={(event) => handleChange(event)}
-        />
-        <InputField
-          type="password"
-          name="password"
-          placeholder="Password"
-          className={styles.input}
-          onChange={(event) => handleChange(event)}
-        />
-        {type === AUTH.SIGNUP && (
+          rules={[{ required: true, message: "Please enter your email!" }]}
+        >
           <InputField
-            type="password"
-            name="confirmPassword"
-            placeholder="Confirm Password"
+            placeholder="Email Address"
             className={styles.input}
-            onChange={(event) => handleChange(event)}
+            name="email"
           />
+        </Form.Item>
+
+        <Form.Item<FieldType>
+          name="password"
+          rules={[
+            { required: true, message: "Please enter your password!" },
+            {
+              pattern: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/,
+              message:
+                "Password must be at least 8 characters and contain at least one letter and one number.",
+            },
+          ]}
+        >
+          <InputField
+            placeholder="Password"
+            className={styles.input}
+            name="password"
+            type="password"
+          />
+        </Form.Item>
+
+        {type === AUTH.SIGNUP && (
+          <Form.Item<FieldType>
+            name="confirmPassword"
+            rules={[{ required: true, message: "Confirm password!" }]}
+          >
+            <InputField
+              placeholder="Confirm password"
+              className={styles.input}
+              name="confirmPassword"
+              type="password"
+            />
+          </Form.Item>
         )}
         <Button
-          onClick={handleSubmit}
+          htmlType="submit"
           type="primary"
           className={`${styles.btn} ${styles.submit__btn}`}
         >
@@ -157,7 +168,7 @@ const AuthForm = ({ type }: Props) => {
         </Button>
 
         {isLoginPage && loginContent}
-      </form>
+      </Form>
       <Link
         to={isLoginPage ? `/${AUTH.SIGNUP}` : `/${AUTH.LOGIN}`}
         className={styles.link}
