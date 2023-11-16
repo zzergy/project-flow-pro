@@ -88,7 +88,7 @@ const AuthForm = ({ type }: Props) => {
       <p>or Connect with</p>
       <Button
         onClick={(event) => handleGoogleSignIn(event)}
-        className={`${styles.btn} ${styles.google__btn}`}
+        className={`${styles.btn} ${styles.googleBtn}`}
       >
         Google Account
       </Button>
@@ -162,7 +162,7 @@ const AuthForm = ({ type }: Props) => {
         <Button
           htmlType="submit"
           type="primary"
-          className={`${styles.btn} ${styles.submit__btn}`}
+          className={`${styles.btn} ${styles.submitBtn}`}
         >
           Continue
         </Button>
