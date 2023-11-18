@@ -3,10 +3,10 @@ import { useEffect } from "react";
 
 type NotificationType = "success" | "info" | "warning" | "error";
 
-type NotificationOptions = {
+interface NotificationOptions {
   message: string;
   description?: string;
-};
+}
 
 const useNotification = () => {
   const showNotification = (

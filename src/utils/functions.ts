@@ -7,8 +7,8 @@ export const transformFirebaseErrorMessage = (errorMessage: string) => {
 
     const firstLetter = message[0][0].toUpperCase();
     const restOfTheMessage = message
-      .filter((el) => el !== message[0])
-      .map((el) => el);
+      .filter((element) => element !== message[0])
+      .map((element) => element);
 
     const finalMessage = `${firstLetter}${message[0].slice(
       1

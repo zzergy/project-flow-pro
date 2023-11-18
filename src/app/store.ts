@@ -4,7 +4,7 @@ import {
   useDispatch,
   useSelector,
 } from "react-redux";
-import authReducer from "../features/auth/authSlice";
+import authReducer from "../slices/auth/authSlice";
 
 export const store = configureStore({
   reducer: {

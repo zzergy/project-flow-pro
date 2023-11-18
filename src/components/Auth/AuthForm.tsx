@@ -7,33 +7,30 @@ import {
   createUserWithEmailAndPassword,
   signInWithPopup,
 } from "firebase/auth";
-import { Button, Form } from "antd";
+import { Button, Form, Input } from "antd";
 import useNotification from "../../hooks/useNotification";
 import { transformFirebaseErrorMessage } from "../../utils/functions";
+import { errorMessages, formMessages } from "../../utils/constants";
 import styles from "./AuthForm.module.scss";
-import InputField from "../shared/InputField";
 
-type Props = {
+interface Props {
   type: AUTH;
-};
+}
 
-type FieldType = {
+interface FieldType {
   username?: string;
   email: string;
   password: string;
   confirmPassword?: string;
-};
+}
 
 const AuthForm = ({ type }: Props) => {
   const navigate = useNavigate();
   const notify = useNotification();
   const database = collection(db, "users");
+  const classnames = require("classnames");
 
   const isLoginPage = type === AUTH.LOGIN;
-
-  const linkText = isLoginPage
-    ? "Don’t have an account ? Sign Up here"
-    : "Already have an account ? Sign In here";
 
   const onFinish = async (values: FieldType) => {
     const method = isLoginPage
@@ -42,7 +39,7 @@ const AuthForm = ({ type }: Props) => {
 
     try {
       if (values.password !== values.confirmPassword && !isLoginPage) {
-        notify.error("Error", "Passwords don't match");
+        notify.error("Error", errorMessages.passwordsDontMatch);
         return;
       }
 
@@ -83,32 +80,20 @@ const AuthForm = ({ type }: Props) => {
     notify.error("Error", errorInfo);
   };
 
-  const loginContent = (
-    <div className={styles.login}>
-      <p>or Connect with</p>
-      <Button
-        onClick={(event) => handleGoogleSignIn(event)}
-        className={`${styles.btn} ${styles.googleBtn}`}
-      >
-        Google Account
-      </Button>
-    </div>
-  );
-
   return (
     <>
       <Form
         className={styles.form}
         onFinish={onFinish}
         onFinishFailed={onFinishFailed}
-        name="control-ref"
+        name="controlRef"
       >
         {!isLoginPage && (
-          <Form.Item<FieldType>
+          <Form.Item
             name="username"
-            rules={[{ required: true, message: "Please enter your username!" }]}
+            rules={[{ required: true, message: formMessages.enterUsername }]}
           >
-            <InputField
+            <Input
               name="username"
               placeholder="Username"
               className={styles.input}
@@ -116,29 +101,28 @@ const AuthForm = ({ type }: Props) => {
           </Form.Item>
         )}
 
-        <Form.Item<FieldType>
+        <Form.Item
           name="email"
-          rules={[{ required: true, message: "Please enter your email!" }]}
+          rules={[{ required: true, message: formMessages.enterEmail }]}
         >
-          <InputField
+          <Input
             placeholder="Email Address"
             className={styles.input}
             name="email"
           />
         </Form.Item>
 
-        <Form.Item<FieldType>
+        <Form.Item
           name="password"
           rules={[
-            { required: true, message: "Please enter your password!" },
+            { required: true, message: formMessages.enterPassword },
             {
-              pattern: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/,
-              message:
-                "Password must be at least 8 characters and contain at least one letter and one number.",
+              pattern: formMessages.passwordRegex,
+              message: formMessages.strongPassword,
             },
           ]}
         >
-          <InputField
+          <Input
             placeholder="Password"
             className={styles.input}
             name="password"
@@ -147,11 +131,11 @@ const AuthForm = ({ type }: Props) => {
         </Form.Item>
 
         {type === AUTH.SIGNUP && (
-          <Form.Item<FieldType>
+          <Form.Item
             name="confirmPassword"
-            rules={[{ required: true, message: "Confirm password!" }]}
+            rules={[{ required: true, message: formMessages.confirmPassword }]}
           >
-            <InputField
+            <Input
               placeholder="Confirm password"
               className={styles.input}
               name="confirmPassword"
@@ -162,18 +146,32 @@ const AuthForm = ({ type }: Props) => {
         <Button
           htmlType="submit"
           type="primary"
-          className={`${styles.btn} ${styles.submitBtn}`}
+          className={classnames(styles.button, styles.submitButton)}
         >
           Continue
         </Button>
 
-        {isLoginPage && loginContent}
+        {isLoginPage && (
+          <div className={styles.login}>
+            <p>or Connect with</p>
+            <Button
+              onClick={(event) => handleGoogleSignIn(event)}
+              className={classnames(styles.button, styles.googleButton)}
+            >
+              Google Account
+            </Button>
+          </div>
+        )}
       </Form>
       <Link
         to={isLoginPage ? `/${AUTH.SIGNUP}` : `/${AUTH.LOGIN}`}
         className={styles.link}
       >
-        <span>{linkText}</span>
+        <span>
+          {isLoginPage
+            ? "Don’t have an account ? Sign Up here"
+            : "Already have an account ? Sign In here"}
+        </span>
       </Link>
     </>
   );

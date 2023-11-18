@@ -1,9 +1,9 @@
 import logo from "../../images/logo.svg";
 import styles from "./AuthBackground.module.scss";
 
-type Props = {
+interface Props {
   text: string;
-};
+}
 
 const AuthBackground = ({ text }: Props) => {
   return (

@@ -24,7 +24,7 @@
     }
   }
 
-  .btn {
+  .button {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -36,23 +36,23 @@
     margin-bottom: 16px;
   }
 
-  .submitBtn {
+  .submitButton {
     background-color: var(--primary);
     color: var(--white);
     margin-top: 32px;
   }
 
-  .login {
-    color: var(--gray);
-    text-align: center;
-  }
-
-  .googleBtn {
+  .googleButton {
     border: 3px solid var(--primary);
     background-color: transparent;
     color: var(--primary);
     width: 100%;
     margin-top: 16px;
+  }
+
+  .login {
+    color: var(--gray);
+    text-align: center;
   }
 }
 
