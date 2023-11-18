@@ -45,9 +45,6 @@ const AuthForm = ({ type }: Props) => {
 
       const response = await method(auth, values.email, values.password);
 
-      const token = await response.user.getIdToken();
-      localStorage.setItem("token", token);
-
       if (!isLoginPage && response.user) {
         addDoc(database, {
           email: values.email,

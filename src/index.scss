@@ -14,3 +14,12 @@ body,
   width: 100%;
   height: 100%;
 }
+
+:where(.css-dev-only-do-not-override-ulmupb).ant-input-status-error:not(
+    .ant-input-disabled
+  ):not(.ant-input-borderless).ant-input:focus,
+:where(.css-dev-only-do-not-override-ulmupb).ant-input-status-error:not(
+    .ant-input-disabled
+  ):not(.ant-input-borderless).ant-input:focus-within {
+  box-shadow: none;
+}

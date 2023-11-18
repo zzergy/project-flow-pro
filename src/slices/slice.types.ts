@@ -5,6 +5,4 @@ export type InitialState = {
   isLoading: boolean;
 };
 
-export type AuthInitialState = InitialState & {
-  isLoggedIn: boolean;
-};
+export type AuthInitialState = InitialState;

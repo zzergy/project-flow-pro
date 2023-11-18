@@ -6,20 +6,14 @@ import { auth } from "../../firebase.config";
 const initialState: AuthInitialState = {
   error: null,
   isLoading: false,
-  isLoggedIn: Boolean(localStorage.getItem("token")),
 };
 
 const authSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {
-    logout(state) {
+    logout() {
       signOut(auth);
-      state.isLoggedIn = false;
-      localStorage.removeItem("token");
-    },
-    checkIsLoggedIn(state) {
-      state.isLoggedIn = Boolean(localStorage.getItem("token"));
     },
     clearError: (state) => {
       state.error = null;
@@ -27,6 +21,6 @@ const authSlice = createSlice({
   },
 });
 
-export const { logout, checkIsLoggedIn, clearError } = authSlice.actions;
+export const { logout, clearError } = authSlice.actions;
 
 export default authSlice.reducer;
