@@ -5,13 +5,15 @@
   text-align: center;
 
   .content {
-    display: flex;
-    flex-direction: column;
+    height: 100%;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 1fr;
+    align-items: start;
     color: var(--white);
 
     .header {
       display: flex;
-      align-items: center;
       gap: 8px;
       padding: 16px 0 0 16px;
 
@@ -26,9 +28,9 @@
     }
 
     .text {
+      justify-self: center;
+      margin-left: 20px;
       font-weight: 700;
-      margin-top: 50%;
-      margin-left: 5%;
 
       .heading {
         margin-bottom: 8px;
