@@ -4,19 +4,13 @@
   box-sizing: border-box;
 }
 
-:root {
-  --white: #fff;
-  --black: #000;
-  --color-main: #1356d0;
-  --color-secondary: #89c7ff;
-
-  --color-gray: #9c9c9c;
-  --color-gray-light: #9f9f9f;
-  --color-dark-blue: #0a1f46;
-  --color-mid-blue: #212f52;
-  --color-main-gradient: linear-gradient(#1356d0, #0a1f46);
-}
-
 body {
   font-family: "Inter", sans-serif;
+}
+
+html,
+body,
+#root {
+  width: 100%;
+  height: 100%;
 }

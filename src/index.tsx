@@ -4,6 +4,7 @@ import { Provider } from "react-redux";
 import { store } from "./app/store";
 import { ConfigProvider } from "antd";
 import App from "./App";
+import "./stylingVariables.scss";
 import "./index.scss";
 
 const root = ReactDOM.createRoot(

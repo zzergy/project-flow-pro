@@ -4,23 +4,23 @@
 
   .input {
     font-family: inherit;
-    padding: 0 0 0.2rem 0;
+    padding: 0 0 3px 0;
     border: none;
     border-bottom: 3px solid var(--black);
     border-radius: 0;
 
     &::placeholder {
-      color: var(--color-gray);
+      color: var(--gray);
     }
 
     &:focus,
     &:active {
-      border-bottom: 3px solid var(--color-main);
+      border-bottom: 3px solid var(--primary);
       box-shadow: none;
     }
 
     &:last-of-type {
-      margin-bottom: 0.8rem;
+      margin-bottom: 12px;
     }
   }
 
@@ -29,39 +29,39 @@
     justify-content: center;
     align-items: center;
 
-    padding: 1.5rem 2rem;
+    padding: 24px 32px;
     text-transform: uppercase;
-    letter-spacing: 0.4rem;
+    letter-spacing: 6px;
     font-weight: 400;
-    margin-bottom: 1rem;
+    margin-bottom: 16px;
   }
 
   .submitBtn {
-    background-color: var(--color-main);
+    background-color: var(--primary);
     color: var(--white);
-    margin-top: 2rem;
+    margin-top: 32px;
   }
 
   .login {
-    color: var(--color-gray);
+    color: var(--gray);
     text-align: center;
   }
 
   .googleBtn {
-    border: 3px solid var(--color-main);
+    border: 3px solid var(--primary);
     background-color: transparent;
-    color: var(--color-main);
+    color: var(--primary);
     width: 100%;
-    margin-top: 1rem;
+    margin-top: 16px;
   }
 }
 
 .link {
-  font-size: 0.8rem;
+  font-size: var(--f-size-12);
   font-weight: 500;
-  color: var(--color-main);
+  color: var(--primary);
   text-align: center;
-  margin-top: 0.5rem;
+  margin-top: 8px;
 
   span {
     display: inline-block;

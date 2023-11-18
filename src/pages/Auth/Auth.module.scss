@@ -13,24 +13,24 @@
     display: flex;
     justify-content: center;
     align-content: center;
-    height: 35rem;
-    border-radius: 0.8rem;
+    height: 560px;
+    border-radius: var(--b-radius-12);
     overflow: hidden;
     box-shadow: 5px 5px 15px 5px #0a1f46;
 
     .content {
       background-color: var(--white);
-      padding: 4rem 3rem;
+      padding: 64px 48px;
       display: flex;
       flex-direction: column;
-      width: 30rem;
+      width: 480px;
 
       .heading {
         font-family: inherit;
         font-weight: 700;
-        margin-bottom: 4rem;
+        margin-bottom: 64px;
         text-align: left;
-        color: var(--color-dark-blue);
+        color: var(--dark-blue);
       }
     }
   }
