@@ -24,7 +24,7 @@ const App = () => {
 
   return (
     <PersistGate persistor={persistor}>
-      <RouterProvider router={router} />;
+      <RouterProvider router={router} />
     </PersistGate>
   );
 };

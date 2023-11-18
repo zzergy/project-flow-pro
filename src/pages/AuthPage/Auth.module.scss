@@ -1,29 +1,27 @@
 .background {
-  width: 100vw;
-  height: 100vh;
   background-image: url("../../images/background.png");
   background-size: cover;
   background-repeat: no-repeat;
+  height: 100vh;
 
   display: flex;
   justify-content: center;
   align-items: center;
 
   .container {
-    display: flex;
-    justify-content: center;
-    align-content: center;
-    height: 560px;
-    border-radius: var(--b-radius-12);
-    overflow: hidden;
-    box-shadow: 5px 5px 15px 5px #0a1f46;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    box-shadow: 5px 5px 15px 5px rgba(10, 32, 71, 0.3);
 
     .content {
-      background-color: var(--white);
-      padding: 64px 48px;
       display: flex;
       flex-direction: column;
+      z-index: 9;
       width: 480px;
+      background-color: var(--white);
+      padding: 64px 46px;
+      box-shadow: -5px 0px 4px 0px rgba(9, 32, 70, 0.48);
+      border-radius: 0 12px 12px 0;
 
       .heading {
         font-family: inherit;
