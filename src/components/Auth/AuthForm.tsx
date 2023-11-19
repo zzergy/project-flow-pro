@@ -74,7 +74,9 @@ const AuthForm = ({ type }: Props) => {
   };
 
   const onFinishFailed = (errorInfo: any) => {
-    notify.error("Error", errorInfo);
+    errorInfo.errorFields.map((element: any) =>
+      notify.error("Error", element.errors)
+    );
   };
 
   return (
@@ -88,7 +90,12 @@ const AuthForm = ({ type }: Props) => {
         {!isLoginPage && (
           <Form.Item
             name="username"
-            rules={[{ required: true, message: formMessages.enterUsername }]}
+            className={styles.formItem}
+            rules={[
+              { required: true, message: formMessages.enterUsername },
+
+              { max: 25, message: errorMessages.max25Characters },
+            ]}
           >
             <Input
               name="username"
@@ -100,6 +107,7 @@ const AuthForm = ({ type }: Props) => {
 
         <Form.Item
           name="email"
+          className={styles.formItem}
           rules={[{ required: true, message: formMessages.enterEmail }]}
         >
           <Input
@@ -111,6 +119,7 @@ const AuthForm = ({ type }: Props) => {
 
         <Form.Item
           name="password"
+          className={styles.formItem}
           rules={[
             { required: true, message: formMessages.enterPassword },
             {
@@ -130,6 +139,7 @@ const AuthForm = ({ type }: Props) => {
         {type === AUTH.SIGNUP && (
           <Form.Item
             name="confirmPassword"
+            className={styles.formItem}
             rules={[{ required: true, message: formMessages.confirmPassword }]}
           >
             <Input

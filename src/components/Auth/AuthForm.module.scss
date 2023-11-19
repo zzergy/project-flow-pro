@@ -2,33 +2,32 @@
   display: flex;
   flex-direction: column;
 
-  .input {
-    font-family: inherit;
-    padding: 0 0 3px 0;
-    border: none;
-    border-bottom: 3px solid var(--black);
-    border-radius: 0;
+  .formItem {
+    margin-bottom: 30px;
 
-    &::placeholder {
-      color: var(--gray);
-    }
+    .input {
+      font-family: inherit;
+      padding: 0 0 3px 0;
+      border: none;
+      border-bottom: 3px solid var(--dark-blue);
+      border-radius: 0;
+      transition: all 0.3s;
 
-    &:focus,
-    &:active {
-      border-bottom: 3px solid var(--primary);
-      box-shadow: none;
-    }
+      &::placeholder {
+        color: var(--gray);
+      }
 
-    &:last-of-type {
-      margin-bottom: 12px;
+      &:focus,
+      &:active {
+        border-bottom: 3px solid var(--light-primary);
+        box-shadow: none;
+      }
     }
   }
-
   .button {
     display: flex;
     justify-content: center;
     align-items: center;
-
     padding: 24px 32px;
     text-transform: uppercase;
     letter-spacing: 6px;

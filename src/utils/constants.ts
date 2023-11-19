@@ -1,6 +1,7 @@
 export const errorMessages = {
   error: "Error",
   passwordsDontMatch: "Passwords don't match",
+  max25Characters: "Input must not be greater than 25 characters!",
 };
 
 export const formMessages = {
