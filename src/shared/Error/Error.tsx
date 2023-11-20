@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { ROUTES } from "../../utils/enums";
 import styles from "./Error.module.scss";
 
-const ErrorPage = () => {
+const Error = () => {
   const navigate = useNavigate();
 
   return (
@@ -26,4 +26,4 @@ const ErrorPage = () => {
   );
 };
 
-export default ErrorPage;
+export default Error;
