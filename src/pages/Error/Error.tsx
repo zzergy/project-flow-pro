@@ -1,7 +1,7 @@
 import { Button, Result } from "antd";
 import { useNavigate } from "react-router-dom";
 import { ROUTES } from "../../utils/enums";
-import styles from "./ErrorPage.module.scss";
+import styles from "./Error.module.scss";
 
 const ErrorPage = () => {
   const navigate = useNavigate();

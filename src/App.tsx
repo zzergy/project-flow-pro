@@ -1,17 +1,18 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { PersistGate } from "redux-persist/integration/react";
 import { persistor } from "./store";
-import Signup from "./pages/AuthPage/Signup";
-import Login from "./pages/AuthPage/Login";
-import ErrorPage from "./pages/ErrorPage/ErrorPage";
+import Signup from "./pages/Auth/Signup";
+import Login from "./pages/Auth/Login";
+import ErrorPage from "./pages/Error/Error";
 import { ROUTES } from "./utils/enums";
 
 const App = () => {
   const router = createBrowserRouter([
     {
       path: ROUTES.NOT_FOUND,
-      element: <App />,
-      errorElement: <ErrorPage />,
+      // element: <Root />,
+      element: <ErrorPage />,
+      // errorElement: <ErrorPage />,
     },
     {
       path: ROUTES.SIGNUP,
