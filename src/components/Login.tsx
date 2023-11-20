@@ -1,6 +1,6 @@
-import AuthBackground from "../../components/Auth/AuthBackground";
-import AuthForm from "../../components/Auth/AuthForm";
-import { AUTH } from "../../utils/enums";
+import AuthBackground from "./AuthBackground/AuthBackground";
+import AuthForm from "./AuthForm/AuthForm";
+import { AUTH } from "../utils/enums";
 import styles from "./Auth.module.scss";
 
 const Login = () => {

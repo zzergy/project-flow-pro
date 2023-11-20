@@ -1,9 +1,9 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { PersistGate } from "redux-persist/integration/react";
 import { persistor } from "./store";
-import Signup from "./pages/Auth/Signup";
-import Login from "./pages/Auth/Login";
-import ErrorPage from "./pages/Error/Error";
+import Signup from "./components/Signup";
+import Login from "./components/Login";
+import Error from "./shared/ErrorPage/Error";
 import { ROUTES } from "./utils/enums";
 
 const App = () => {
