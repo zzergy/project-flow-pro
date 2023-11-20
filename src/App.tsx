@@ -1,24 +1,31 @@
-import logo from "./logo.svg";
-import "./App.css";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { PersistGate } from "redux-persist/integration/react";
+import { persistor } from "./store";
+import Signup from "./components/Signup";
+import Login from "./components/Login";
+import Error from "./shared/Error/Error";
+import { ROUTES } from "./utils/enums";
 
 const App = () => {
+  const router = createBrowserRouter([
+    {
+      path: ROUTES.INDEX,
+      errorElement: <Error />,
+    },
+    {
+      path: ROUTES.SIGNUP,
+      element: <Signup />,
+    },
+    {
+      path: ROUTES.LOGIN,
+      element: <Login />,
+    },
+  ]);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <PersistGate persistor={persistor}>
+      <RouterProvider router={router} />
+    </PersistGate>
   );
 };
 

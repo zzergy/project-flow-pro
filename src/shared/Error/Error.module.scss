@@ -1,0 +1,15 @@
+.container {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .button {
+    text-align: center !important;
+    padding: 12px 20px;
+    text-transform: uppercase;
+    letter-spacing: 6px;
+    height: 100%;
+    font-size: var(--f-size-12);
+  }
+}

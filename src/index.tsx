@@ -1,10 +1,11 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { Provider } from "react-redux";
-import { store } from "./app/store";
+import { store } from "./store";
 import { ConfigProvider } from "antd";
 import App from "./App";
-import "./index.css";
+import "./_stylingVariables.scss";
+import "./index.scss";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
