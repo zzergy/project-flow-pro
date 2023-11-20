@@ -1,13 +1,10 @@
 import { Button, Result } from "antd";
 import { useNavigate } from "react-router-dom";
+import { ROUTES } from "../../utils/enums";
 import styles from "./ErrorPage.module.scss";
 
 const ErrorPage = () => {
   const navigate = useNavigate();
-
-  const handleNavigate = () => {
-    navigate("/");
-  };
 
   return (
     <div className={styles.container}>
@@ -18,7 +15,7 @@ const ErrorPage = () => {
         extra={
           <Button
             type="primary"
-            onClick={handleNavigate}
+            onClick={() => navigate(ROUTES.INDEX)}
             className={styles.button}
           >
             Back Home
