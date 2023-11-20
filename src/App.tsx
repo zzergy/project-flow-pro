@@ -5,11 +5,13 @@ import Signup from "./components/Signup";
 import Login from "./components/Login";
 import Error from "./shared/Error/Error";
 import { ROUTES } from "./utils/enums";
+import Homepage from "./components/Homepage/Homepage";
 
 const App = () => {
   const router = createBrowserRouter([
     {
       path: ROUTES.INDEX,
+      element: <Homepage />,
       errorElement: <Error />,
     },
     {
@@ -19,7 +21,7 @@ const App = () => {
     {
       path: ROUTES.LOGIN,
       element: <Login />,
-    },
+    }
   ]);
 
   return (
