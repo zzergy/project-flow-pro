@@ -176,8 +176,8 @@ const AuthForm = ({ type }: Props) => {
       >
         <span>
           {isLoginPage
-            ? "Don’t have an account ? Sign Up here"
-            : "Already have an account ? Sign In here"}
+            ? formMessages.signUpMessage
+            : formMessages.signInMessage}
         </span>
       </Link>
     </>

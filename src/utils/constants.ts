@@ -12,4 +12,6 @@ export const formMessages = {
   strongPassword:
     "Password must be at least 8 characters and contain at least one letter and one number.",
   passwordRegex: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/,
+  signUpMessage: "Don’t have an account ? Sign Up here",
+  signInMessage: "Already have an account ? Sign In here",
 };
