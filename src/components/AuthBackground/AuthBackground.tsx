@@ -7,7 +7,7 @@ interface Props {
 
 const AuthBackground = ({ text }: Props) => {
   return (
-    <section className={styles.background}>
+    <div className={styles.background}>
       <div className={styles.content}>
         <header className={styles.header}>
           <img src={logo} alt="Logo" className={styles.logo} />
@@ -19,7 +19,7 @@ const AuthBackground = ({ text }: Props) => {
           <p className={styles.subheading}>{text}</p>
         </div>
       </div>
-    </section>
+    </div>
   );
 };
 
