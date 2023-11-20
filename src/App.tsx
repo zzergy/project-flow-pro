@@ -10,7 +10,8 @@ const App = () => {
   const router = createBrowserRouter([
     {
       path: ROUTES.NOT_FOUND,
-      element: <ErrorPage />,
+      element: <App />,
+      errorElement: <ErrorPage />,
     },
     {
       path: ROUTES.SIGNUP,
