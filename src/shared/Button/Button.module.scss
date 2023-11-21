@@ -1,0 +1,19 @@
+.button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--white);
+
+    // &.primary {
+    //     background-color: var(--primary);
+    // }
+
+    &.padded {
+        padding: 24px 32px;
+    }
+
+    &.letterSpacing {
+        text-transform: uppercase;
+        letter-spacing: 6px;
+    }
+}

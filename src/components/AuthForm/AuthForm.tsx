@@ -1,5 +1,5 @@
 import { Link, useNavigate } from "react-router-dom";
-import { AUTH } from "../../utils/enums";
+import { AUTH, ROUTES } from "../../utils/enums";
 import { auth, db, provider } from "../../firebase.config";
 import { collection, addDoc } from "firebase/firestore";
 import {
@@ -12,6 +12,7 @@ import useNotification from "../../hooks/useNotification";
 import { transformFirebaseErrorMessage } from "../../utils/functions";
 import { messages } from "../../utils/constants";
 import styles from "./AuthForm.module.scss";
+import CustomButton from "../../shared/Button/Button";
 
 interface Props {
   type: AUTH;
@@ -52,10 +53,10 @@ const AuthForm = ({ type }: Props) => {
         });
 
         notify.success("Success");
-        navigate("/login");
+        navigate(ROUTES.LOGIN);
       }
 
-      isLoginPage && navigate("/");
+      isLoginPage && navigate(ROUTES.INDEX);
     } catch (error: any) {
       notify.error("Error", transformFirebaseErrorMessage(error.message));
     }
@@ -67,7 +68,7 @@ const AuthForm = ({ type }: Props) => {
     try {
       const response = await signInWithPopup(auth, provider);
 
-      response.user && navigate("/");
+      response.user && navigate(ROUTES.INDEX);
     } catch (error: any) {
       notify.error("Error", transformFirebaseErrorMessage(error.message));
     }
@@ -87,96 +88,102 @@ const AuthForm = ({ type }: Props) => {
         onFinishFailed={onFinishFailed}
         name="controlRef"
       >
-        {!isLoginPage && (
+        <div className={styles.formInputs}>
+          {!isLoginPage && (
+            <Form.Item
+              name="username"
+              className={styles.formItem}
+              rules={[
+                { required: true, message: messages.enterUsername },
+                { max: 25, message: messages.max25Characters },
+              ]}
+            >
+              <Input
+                name="username"
+                placeholder={messages.username}
+                className={styles.input}
+              />
+            </Form.Item>
+          )}
+
           <Form.Item
-            name="username"
+            name="email"
+            className={styles.formItem}
+            rules={[{ required: true, message: messages.enterEmail }]}
+          >
+            <Input
+              placeholder={messages.emailAddress}
+              className={styles.input}
+              name="email"
+            />
+          </Form.Item>
+
+          <Form.Item
+            name="password"
             className={styles.formItem}
             rules={[
-              { required: true, message: messages.enterUsername },
-
-              { max: 25, message: messages.max25Characters },
+              { required: true, message: messages.enterPassword },
+              {
+                pattern: messages.passwordRegex,
+                message: messages.strongPassword,
+              },
             ]}
           >
             <Input
-              name="username"
-              placeholder="Username"
+              placeholder={messages.password}
               className={styles.input}
-            />
-          </Form.Item>
-        )}
-
-        <Form.Item
-          name="email"
-          className={styles.formItem}
-          rules={[{ required: true, message: messages.enterEmail }]}
-        >
-          <Input
-            placeholder="Email Address"
-            className={styles.input}
-            name="email"
-          />
-        </Form.Item>
-
-        <Form.Item
-          name="password"
-          className={styles.formItem}
-          rules={[
-            { required: true, message: messages.enterPassword },
-            {
-              pattern: messages.passwordRegex,
-              message: messages.strongPassword,
-            },
-          ]}
-        >
-          <Input
-            placeholder="Password"
-            className={styles.input}
-            name="password"
-            type="password"
-          />
-        </Form.Item>
-
-        {type === AUTH.SIGNUP && (
-          <Form.Item
-            name="confirmPassword"
-            className={styles.formItem}
-            rules={[{ required: true, message: messages.confirmPassword }]}
-          >
-            <Input
-              placeholder="Confirm password"
-              className={styles.input}
-              name="confirmPassword"
+              name="password"
               type="password"
             />
           </Form.Item>
-        )}
-        <Button
+
+          {type === AUTH.SIGNUP && (
+            <Form.Item
+              name="confirmPassword"
+              className={styles.formItem}
+              rules={[{ required: true, message: messages.confirmPassword }]}
+            >
+              <Input
+                placeholder={messages.confirmPassword}
+                className={styles.input}
+                name="confirmPassword"
+                type="password"
+              />
+            </Form.Item>
+          )}
+
+        </div>
+
+        <CustomButton
           htmlType="submit"
           type="primary"
-          className={classnames(styles.button, styles.submitButton)}
-        >
-          Continue
-        </Button>
+          label={messages.continue}
+          padded
+          letterSpacing
+          onClick={() => { }}
+        />
 
         {isLoginPage && (
           <div className={styles.login}>
-            <p>or Connect with</p>
-            <Button
+            <p>{messages.orConnectWith}</p>
+            <CustomButton
+              padded
+              letterSpacing
+              type="primary"
+              ghost
+              label={messages.googleAccount}
               onClick={(event) => handleGoogleSignIn(event)}
               className={classnames(styles.button, styles.googleButton)}
-            >
-              Google Account
-            </Button>
+            />
           </div>
         )}
       </Form>
+
       <Link
-        to={isLoginPage ? `/${AUTH.SIGNUP}` : `/${AUTH.LOGIN}`}
+        to={isLoginPage ? ROUTES.SIGNUP : ROUTES.LOGIN}
         className={styles.link}
       >
-        <span>
-          {isLoginPage ? messages.signUpMessage : messages.signInMessage}
-        </span>
+        {isLoginPage ? messages.signUpMessage : messages.signInMessage}
       </Link>
     </>
   );

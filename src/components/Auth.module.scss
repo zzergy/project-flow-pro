@@ -16,6 +16,8 @@
     .content {
       display: flex;
       flex-direction: column;
+      justify-content: space-between;
+
       z-index: 9;
       width: 480px;
       height: 540px;

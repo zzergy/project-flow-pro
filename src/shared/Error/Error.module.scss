@@ -2,7 +2,14 @@
   height: 100%;
   display: flex;
   justify-content: center;
+  flex-direction: column;
   align-items: center;
+
+  .error {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
 
   .button {
     text-align: center !important;

@@ -2,6 +2,8 @@ import { Button, Result } from "antd";
 import { useNavigate } from "react-router-dom";
 import { ROUTES } from "../../utils/enums";
 import styles from "./Error.module.scss";
+import CustomButton from "../Button/Button";
+import { messages } from "../../utils/constants";
 
 const Error = () => {
   const navigate = useNavigate();
@@ -11,15 +13,17 @@ const Error = () => {
       <Result
         status="404"
         title="404"
-        subTitle="Sorry, the page you visited does not exist."
+        subTitle={messages.pageDoesNotExist}
+        className={styles.error}
         extra={
-          <Button
+          <CustomButton
             type="primary"
+            label={messages.backHome}
             onClick={() => navigate(ROUTES.INDEX)}
             className={styles.button}
-          >
-            Back Home
-          </Button>
+            padded
+            letterSpacing
+          />
         }
       />
     </div>

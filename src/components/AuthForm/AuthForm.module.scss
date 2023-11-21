@@ -2,6 +2,10 @@
   display: flex;
   flex-direction: column;
 
+  .formInputs {
+    margin-bottom: 30px;
+  }
+
   .formItem {
     margin-bottom: 30px;
 
@@ -24,6 +28,7 @@
       }
     }
   }
+
   .button {
     display: flex;
     justify-content: center;
@@ -32,13 +37,11 @@
     text-transform: uppercase;
     letter-spacing: 6px;
     font-weight: 400;
-    margin-bottom: 16px;
   }
 
   .submitButton {
     background-color: var(--primary);
     color: var(--white);
-    margin-top: 32px;
   }
 
   .googleButton {
@@ -46,12 +49,18 @@
     background-color: transparent;
     color: var(--primary);
     width: 100%;
-    margin-top: 16px;
+    margin-top: 12px;
   }
 
   .login {
-    color: var(--gray);
-    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    p {
+      color: var(--gray);
+      margin: 12px;
+      text-align: center;
+    }
   }
 }
 
@@ -60,10 +69,5 @@
   font-weight: 500;
   color: var(--primary);
   text-align: center;
-  margin-top: 8px;
-
-  span {
-    display: inline-block;
-    border-bottom: 1px solid currentColor;
-  }
+  margin: 16px 0;
 }

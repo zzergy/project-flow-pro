@@ -6,6 +6,8 @@ import Login from "./components/Login";
 import Error from "./shared/Error/Error";
 import { ROUTES } from "./utils/enums";
 import Homepage from "./components/Homepage/Homepage";
+import { ConfigProvider } from "antd";
+import { customTheme } from "./customTheme";
 
 const App = () => {
   const router = createBrowserRouter([
@@ -25,9 +27,11 @@ const App = () => {
   ]);
 
   return (
-    <PersistGate persistor={persistor}>
-      <RouterProvider router={router} />
-    </PersistGate>
+    <ConfigProvider theme={customTheme}>
+      <PersistGate persistor={persistor}>
+        <RouterProvider router={router} />
+      </PersistGate>
+    </ConfigProvider>
   );
 };
 
