@@ -10,7 +10,7 @@ import {
 import { Button, Form, Input } from "antd";
 import useNotification from "../../hooks/useNotification";
 import { transformFirebaseErrorMessage } from "../../utils/functions";
-import { errorMessages, formMessages } from "../../utils/constants";
+import { messages } from "../../utils/constants";
 import styles from "./AuthForm.module.scss";
 
 interface Props {
@@ -39,7 +39,7 @@ const AuthForm = ({ type }: Props) => {
 
     try {
       if (values.password !== values.confirmPassword && !isLoginPage) {
-        notify.error("Error", errorMessages.passwordsDontMatch);
+        notify.error("Error", messages.passwordsDontMatch);
         return;
       }
 
@@ -92,9 +92,9 @@ const AuthForm = ({ type }: Props) => {
             name="username"
             className={styles.formItem}
             rules={[
-              { required: true, message: formMessages.enterUsername },
+              { required: true, message: messages.enterUsername },
 
-              { max: 25, message: errorMessages.max25Characters },
+              { max: 25, message: messages.max25Characters },
             ]}
           >
             <Input
@@ -108,7 +108,7 @@ const AuthForm = ({ type }: Props) => {
         <Form.Item
           name="email"
           className={styles.formItem}
-          rules={[{ required: true, message: formMessages.enterEmail }]}
+          rules={[{ required: true, message: messages.enterEmail }]}
         >
           <Input
             placeholder="Email Address"
@@ -121,10 +121,10 @@ const AuthForm = ({ type }: Props) => {
           name="password"
           className={styles.formItem}
           rules={[
-            { required: true, message: formMessages.enterPassword },
+            { required: true, message: messages.enterPassword },
             {
-              pattern: formMessages.passwordRegex,
-              message: formMessages.strongPassword,
+              pattern: messages.passwordRegex,
+              message: messages.strongPassword,
             },
           ]}
         >
@@ -140,7 +140,7 @@ const AuthForm = ({ type }: Props) => {
           <Form.Item
             name="confirmPassword"
             className={styles.formItem}
-            rules={[{ required: true, message: formMessages.confirmPassword }]}
+            rules={[{ required: true, message: messages.confirmPassword }]}
           >
             <Input
               placeholder="Confirm password"
@@ -175,9 +175,7 @@ const AuthForm = ({ type }: Props) => {
         className={styles.link}
       >
         <span>
-          {isLoginPage
-            ? formMessages.signUpMessage
-            : formMessages.signInMessage}
+          {isLoginPage ? messages.signUpMessage : messages.signInMessage}
         </span>
       </Link>
     </>
